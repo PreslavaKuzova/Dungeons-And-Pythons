@@ -7,7 +7,7 @@ from Weapon import Weapon
 class Dungeon:
     def __init__(self, map_directory, hero: Hero):
         self.map_directory = map_directory
-        self.Hero = hero
+        self.hero = hero
         self.tmp_map = []
         self.hero_position_X = None
         self.hero_position_Y = None
@@ -63,6 +63,8 @@ class Dungeon:
         if (x in range(0, self.X) and y in range(0, self.Y)):
             if self.tmp_map[x][y] != '#':
                 if  self.tmp_map[x][y] != 'T':
+                    self.treasure_found()
+                if  self.tmp_map[x][y] != 'E':
                     pass
                 self._update_tmp_map(x, y)
                 return True
@@ -71,16 +73,38 @@ class Dungeon:
 
         return False
     
-    def return_tresure(self):
-        tresure = random.choice(["weapon", "spell", "mana", "health"])
-        return tresure
+    def treasure_found(self):
+        treasure = random.choice(["weapon", "spell", "mana", "health"])
+        
+        if treasure == "health":
+            self.hero.take_healing(random.randint(10, 50))
+            return self.hero.health
+        
+        if treasure == "mana":
+            self.hero.take_mana(random.randint(10, 50))
+            return self.hero.mana
+        
+        if treasure == "spell":
+            random_key = str(random.randint(1, 7))
+            spells = self.read_json("items/spells.json")
+            spell_dic = spells.get(random_key)
+            spell = Spell(**spell_dic)
+            self.hero.learn(spell)
+            return spell.name
 
-    @classmethod
-    def from_json(cls, json_string):
-        dic = json.loads(json_string)
-        return cls(**dic[cls.__name__])
+        if treasure == "weapon":
+            random_key = str(random.randint(1, 5))
+            weapons = self.read_json("items/weapons.json")
+            weapon_dic = weapons.get(random_key)
+            weapon = Weapon(**weapon_dic)
+            self.hero.equip(weapon)
+            return weapon.name
 
-h = Hero(name="Bron", title="Dragonslayer", health=100, mana=100, mana_regeneration_rate=2)
-map = Dungeon("levels/level1.txt", h)
-map.print_map()
-print(map.return_tresure())
+    def fight(self):
+        pass
+
+    @staticmethod
+    def read_json(argument):
+        with open (argument, 'r') as f:
+            data = json.load(f)
+        return data

@@ -1,58 +1,44 @@
 {
-    "1": {
-        "Spell":{          
-            "name": "Riddikulus",
-            "damage": "25", 
-            "mana_cost": "30",
-            "cast_range": "2"
-        }
+    "1": {          
+        "name": "Riddikulus",
+        "damage": "25", 
+        "mana_cost": "30",
+        "cast_range": "2"
     },
-    "2": {
-        "Spell":{          
-            "name": "Obliviate",
-            "damage": "15", 
-            "mana_cost": "20",
-            "cast_range": "1"
-        }
+    "2": {          
+        "name": "Obliviate",
+        "damage": "15", 
+        "mana_cost": "20",
+        "cast_range": "1"
     },
-    "3": {
-        "Spell":{          
-            "name": "Sectumsempra",
-            "damage": "30", 
-            "mana_cost": "35",
-            "cast_range": "1"
-        }
+    "3": {          
+        "name": "Sectumsempra",
+        "damage": "30", 
+        "mana_cost": "35",
+        "cast_range": "1"
     },
-    "4": {
-        "Spell":{          
-            "name": "Lumos",
-            "damage": "20", 
-            "mana_cost": "15",
-            "cast_range": "2"
-        }
+    "4": {          
+        "name": "Lumos",
+        "damage": "20", 
+        "mana_cost": "15",
+        "cast_range": "2"
     },
-    "5": {
-        "Spell":{          
-            "name": "Expelliarmus",
-            "damage": "30", 
-            "mana_cost": "35",
-            "cast_range": "3"
-        }
+    "5": {          
+        "name": "Expelliarmus",
+        "damage": "30", 
+        "mana_cost": "35",
+        "cast_range": "3"
     },
-    "6": {
-        "Spell":{          
-            "name": "Wingardium Leviosa",
-            "damage": "15", 
-            "mana_cost": "40",
-            "cast_range": "2"
-        }
+    "6": {          
+        "name": "Wingardium Leviosa",
+        "damage": "15", 
+        "mana_cost": "40",
+        "cast_range": "2"
     },
-    "7": {
-        "Spell":{          
-            "name": "Expecto Patronum",
-            "damage": "20", 
-            "mana_cost": "30",
-            "cast_range": "2"
-        }
+    "7": {          
+        "name": "Expecto Patronum",
+        "damage": "20", 
+        "mana_cost": "30",
+        "cast_range": "2"
     }
 }

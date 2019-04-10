@@ -1,26 +1,18 @@
 {
-    "1": {
-        "Weapon":{          
-            "name": "Axe",
-            "damage": "25"
-        }
+    "1": {          
+        "name": "Axe",
+        "damage": "25"
     },
-    "2": {
-        "Weapon":{          
-            "name": "Sword",
-            "damage": "35"
-        }
+    "2": {          
+        "name": "Sword",
+        "damage": "35"
     },
-    "3": {
-        "Weapon":{          
-            "name": "Excalibur",
-            "damage": "50"
-        }
+    "3": {          
+        "name": "Excalibur",
+        "damage": "50"
     },
-    "4": {
-        "Weapon":{          
-            "name": "Pecker",
-            "damage": "15"
-        }
+    "4": {          
+        "name": "Pecker",
+        "damage": "15"
     }
 }

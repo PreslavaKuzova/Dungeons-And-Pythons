@@ -1,7 +1,7 @@
 class Weapon:
     def __init__(self, name, damage):
         self.name = name
-        self.damage = damage
+        self.damage = int(damage)
 
     def __eq__(self, other):
         for k in self.__dict__.keys():
