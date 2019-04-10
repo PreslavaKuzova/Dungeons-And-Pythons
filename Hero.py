@@ -69,7 +69,7 @@ class Hero:
 
     def attack(self, by=None):
         if by == 'weapon':
-            if self.weapon != None:
+            if self.equiped != None:
                 return self.equiped.damage
 
         if by == 'magic':
@@ -84,3 +84,4 @@ class Hero:
 
 
 
+h = Hero(name="Bron", title="Dragonslayer", health=100, mana=100, mana_regeneration_rate=2)
