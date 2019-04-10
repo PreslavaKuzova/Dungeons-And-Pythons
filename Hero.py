@@ -80,8 +80,3 @@ class Hero:
                     return self.spell.damage
 
         return 0
-
-
-
-
-h = Hero(name="Bron", title="Dragonslayer", health=100, mana=100, mana_regeneration_rate=2)

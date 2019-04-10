@@ -55,7 +55,7 @@ class Enemy:
 
     def attack(self, by=None):
         if by == 'weapon':
-            if self.weapon != None:
+            if self.equiped != None:
                 return self.equiped.damage
 
         if by == 'magic':
