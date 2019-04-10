@@ -1,27 +1,40 @@
 from Dungeon import Dungeon
 from Hero import Hero
-from os import listdir
+import os
+from getch import getch
+
+def cls():
+    os.system('cls' if os.name=='nt' else 'clear')
 
 def level_readers(path):
-    print("------Welcome to Pythons and Dungeons!!!------")
+    print("----Welcome to Dungeons and Pythons!!!----")
     print("Move your hero with arrow keys.")
-    print("If you'd like to exit game, press esc.")
+    print("Press X to exit.")
     name = input("Enter name for your hero: ")
     title = input("Enter your hero's nickname: ")
     h = Hero(name, title, health=100, mana=100, mana_regeneration_rate=2)
-    levels = listdir(path)
+    levels = os.listdir(path)
     levels.sort()
 
-    for lvl in levels:
+    for idx, lvl in enumerate(levels):
         #start every level with full health and mana
         map = Dungeon(path + '/' + lvl, h) 
         map.spawn()
         key = ''
+        exited = False
         legit_keys={'a', 'w', 's', 'd'}
         while map.hero.is_alive(): #does every move
+            print('level {}'.format(idx+1))
             map.print_map()
-            key = input()
+            print("||||HEALTH: {}||||".format(map.hero.get_health()))
+            print("||||MANA:   {}||||\n".format(map.hero.get_mana()))
+            key = getch()
+            cls()
             key = key.lower()
+            if key == 'x':
+                exited = True
+                break
+
             if key in legit_keys:
                 if key == 'a':
                     map.move_hero('left')
@@ -34,7 +47,12 @@ def level_readers(path):
 
             if map.endpoint == (map.hero_position_X, map.hero_position_Y):
                 break #we're done here, go to next level
-
+        if exited:
+            break
+    if map.hero.is_alive() and not exited:
+        print("Congratulations! You win!")
+    else:
+        print("Bye!")
 #path to folder, where our files with levels are listed
 path = 'levels'
 level_readers(path)

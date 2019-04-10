@@ -14,6 +14,13 @@ class Dungeon:
         self.X = 0
         self.Y = 0
         self.fill_tmp_map()
+        self.get_end_point()
+
+    def get_end_point(self):
+        for x, line in enumerate(self.tmp_map):
+            for y, symbol in enumerate(line):
+                if symbol == 'G':
+                    self.endpoint = (x, y)
 
     def fill_tmp_map(self):
         with open(self.map_directory, 'r') as f:
@@ -26,8 +33,7 @@ class Dungeon:
     def print_map(self):
         for line in self.tmp_map:
             print(''.join(line))
-        
-        print('\n')
+
 
     def spawn(self):
         for x, line in enumerate(self.tmp_map):
@@ -37,6 +43,9 @@ class Dungeon:
                     self.hero_position_X = x
                     self.hero_position_Y = y
                     return True
+                # if symbol == 'G':
+                #      #save coords of end point
+                #     self.endpoint = (x, y)
         return False
 
     def _update_tmp_map(self, x, y):
@@ -62,9 +71,9 @@ class Dungeon:
         
         if (x in range(0, self.X) and y in range(0, self.Y)):
             if self.tmp_map[x][y] != '#':
-                if  self.tmp_map[x][y] != 'T':
+                if  self.tmp_map[x][y] == 'T':
                     self.treasure_found()
-                if  self.tmp_map[x][y] != 'E':
+                if  self.tmp_map[x][y] == 'E':
                     pass
                 self._update_tmp_map(x, y)
                 return True
@@ -75,7 +84,7 @@ class Dungeon:
     
     def treasure_found(self):
         treasure = random.choice(["weapon", "spell", "mana", "health"])
-        
+        print('You win {}!'.format(treasure))
         if treasure == "health":
             self.hero.take_healing(random.randint(10, 50))
             return self.hero.health
@@ -93,7 +102,7 @@ class Dungeon:
             return spell.name
 
         if treasure == "weapon":
-            random_key = str(random.randint(1, 5))
+            random_key = str(random.randint(1, 4))
             weapons = self.read_json("items/weapons.json")
             weapon_dic = weapons.get(random_key)
             weapon = Weapon(**weapon_dic)
