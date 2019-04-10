@@ -8,6 +8,8 @@ class Dungeon:
         self.tmp_map = []
         self.hero_position_X = None
         self.hero_position_Y = None
+        self.X = 0
+        self.Y = 0
         self.fill_tmp_map()
 
     def fill_tmp_map(self):
@@ -15,6 +17,8 @@ class Dungeon:
             for line in f:
                 line = line.replace('\n', "")
                 self.tmp_map.append([x for x in line])
+                self.X += 1
+                self.Y = len(line)
 
     def print_map(self):
         for line in self.tmp_map:
@@ -52,8 +56,12 @@ class Dungeon:
             y -= 1
         if direction == 'right':
             y += 1
+        
+        if (x in range(0, self.X) and y in range(0, self.Y)):
+            if self.tmp_map[x][y] != '#':
+                self._update_tmp_map(x, y)
+                return True
+        else:
+            print('Invalid. Your move was out of the map!')
 
-        if self.tmp_map[x][y] != '#':
-            self._update_tmp_map(x, y)
-            return True
         return False
