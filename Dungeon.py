@@ -1,10 +1,13 @@
-import os
-import tempfile
+import json
+import random
 from Hero import Hero
+from Spell import Spell
+from Weapon import Weapon
 
 class Dungeon:
-    def __init__(self, map_directory):
+    def __init__(self, map_directory, hero: Hero):
         self.map_directory = map_directory
+        self.Hero = hero
         self.tmp_map = []
         self.hero_position_X = None
         self.hero_position_Y = None
@@ -26,7 +29,7 @@ class Dungeon:
         
         print('\n')
 
-    def spawn(self, hero: Hero):
+    def spawn(self):
         for x, line in enumerate(self.tmp_map):
             for y, symbol in enumerate(line):
                 if symbol == 'S':
@@ -59,9 +62,25 @@ class Dungeon:
         
         if (x in range(0, self.X) and y in range(0, self.Y)):
             if self.tmp_map[x][y] != '#':
+                if  self.tmp_map[x][y] != 'T':
+                    pass
                 self._update_tmp_map(x, y)
                 return True
         else:
             print('Invalid. Your move was out of the map!')
 
         return False
+    
+    def return_tresure(self):
+        tresure = random.choice(["weapon", "spell", "mana", "health"])
+        return tresure
+
+    @classmethod
+    def from_json(cls, json_string):
+        dic = json.loads(json_string)
+        return cls(**dic[cls.__name__])
+
+h = Hero(name="Bron", title="Dragonslayer", health=100, mana=100, mana_regeneration_rate=2)
+map = Dungeon("levels/level1.txt", h)
+map.print_map()
+print(map.return_tresure())

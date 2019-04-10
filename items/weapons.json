@@ -1,0 +1,26 @@
+{
+    "1": {
+        "Weapon":{          
+            "name": "Axe",
+            "damage": "25"
+        }
+    },
+    "2": {
+        "Weapon":{          
+            "name": "Sword",
+            "damage": "35"
+        }
+    },
+    "3": {
+        "Weapon":{          
+            "name": "Excalibur",
+            "damage": "50"
+        }
+    },
+    "4": {
+        "Weapon":{          
+            "name": "Pecker",
+            "damage": "15"
+        }
+    }
+}
