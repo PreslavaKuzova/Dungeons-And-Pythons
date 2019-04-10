@@ -12,6 +12,8 @@ def level_readers(path):
         map.print_map()
         map.spawn(h)
         map.print_map()
+        map.move_hero('Right')
+        map.print_map()
 
 path = 'levels'
 level_readers(path)
