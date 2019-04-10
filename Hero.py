@@ -2,8 +2,8 @@ class Hero:
     def __init__(self, name, title, health, mana, mana_regeneration_rate):
         self.name = name
         self.title = title
-        self.max_health = health
-        self.max_mana = mana
+        self.__max_health = health
+        self.__max_mana = mana
         self.health = health #modifiable value, current health
         self.mana = mana #current mana
         self.mana_regeneration_rate = mana_regeneration_rate
