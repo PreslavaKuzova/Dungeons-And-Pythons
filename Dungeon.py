@@ -32,7 +32,7 @@ class Dungeon:
                     return True
         return False
 
-    def update_tmp_map(self, x, y):
+    def _update_tmp_map(self, x, y):
         self.tmp_map[x][y] = 'H'
         self.tmp_map[self.hero_position_X][self.hero_position_Y] = '.'
         self.hero_position_X = x
@@ -40,27 +40,20 @@ class Dungeon:
 
     def move_hero(self, direction):
         direction = direction.lower()
-        if direction == 'up':
-            if self.tmp_map[self.hero_position_X - 1][self.hero_position_Y] != '#':
-                self.update_tmp_map(self.hero_position_X - 1, self.hero_position_Y)
-                return True
-            return False
-
-        if direction == 'down':
-            if self.tmp_map[self.hero_position_X + 1][self.hero_position_Y] != '#':
-                self.update_tmp_map(self.hero_position_X + 1, self.hero_position_Y)
-                return True
-            return False
         
-        if direction == 'left':
-            if self.tmp_map[self.hero_position_X] [self.hero_position_Y - 1]!= '#':
-                self.update_tmp_map(self.hero_position_X, self.hero_position_Y - 1)
-                return True
-            return False
+        x = self.hero_position_X
+        y = self.hero_position_Y
 
+        if direction == 'up':
+            x -= 1
+        if direction == 'down':
+            x += 1
+        if direction == 'left':
+            y -= 1
         if direction == 'right':
-            if self.tmp_map[self.hero_position_X][self.hero_position_Y + 1] != '#':
-                self.update_tmp_map(self.hero_position_X, self.hero_position_Y + 1)
-                return True
-            return False
-            
+            y += 1
+
+        if self.tmp_map[x][y] != '#':
+            self._update_tmp_map(x, y)
+            return True
+        return False
