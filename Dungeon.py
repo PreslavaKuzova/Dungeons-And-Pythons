@@ -6,6 +6,7 @@ class Dungeon:
     def __init__(self, map_directory):
         self.map_directory = map_directory
         self.tmp_map = []
+        self.hero_position = []
         self.fill_tmp_map()
 
     def fill_tmp_map(self):
@@ -19,7 +20,10 @@ class Dungeon:
             print(''.join(line))
 
     def spawn(self, hero: Hero):
-        for line in self.tmp_map:
-            for symbol in line:
+        for x, line in enumerate(self.tmp_map):
+            for y, symbol in enumerate(line):
                 if symbol == 'S':
-                    symbol = 'H'
+                    self.tmp_map[x][y] = 'H'
+                    self.hero_position = [x, y]
+                    return True
+        return False
