@@ -2,6 +2,8 @@ from Dungeon import Dungeon
 from Hero import Hero
 import os
 from getch import getch
+from print_logo import print_logo
+from time import sleep
 
 def cls():
     os.system('cls' if os.name=='nt' else 'clear')
@@ -15,6 +17,10 @@ def level_readers(path):
     h = Hero(name, title, health=100, mana=100, mana_regeneration_rate=2)
     levels = os.listdir(path)
     levels.sort()
+    cls()
+    print_logo()
+    sleep(3) #wait for 3 seconds
+
 
     for idx, lvl in enumerate(levels):
         #start every level with full health and mana
@@ -53,6 +59,7 @@ def level_readers(path):
         print("Congratulations! You win!")
     else:
         print("Bye!")
+
 #path to folder, where our files with levels are listed
 path = 'levels'
 level_readers(path)
