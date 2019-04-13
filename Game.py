@@ -1,5 +1,6 @@
 from Dungeon import Dungeon
 from Hero import Hero
+from Weapon import Weapon
 import os
 from getch import getch
 from print_logo import print_logo
@@ -10,11 +11,13 @@ def cls():
 
 def level_readers(path):
     print("----Welcome to Dungeons and Pythons!!!----")
-    print("Move your hero with arrow keys.")
+    print("Move your hero with a, w, s, d.")
     print("Press X to exit.")
     name = input("Enter name for your hero: ")
     title = input("Enter your hero's nickname: ")
     h = Hero(name, title, health=100, mana=100, mana_regeneration_rate=2)
+    w=Weapon(name='The Axe of Destiny', damage = 10)
+    h.equip(w) #there is no hero without weapon. Start game with some
     levels = os.listdir(path)
     levels.sort()
     cls()
@@ -23,12 +26,11 @@ def level_readers(path):
 
 
     for idx, lvl in enumerate(levels):
-        #start every level with full health and mana
-        map = Dungeon(path + '/' + lvl, h) 
+        map = Dungeon(path + '/' + lvl, h, idx+1) 
         map.spawn()
         key = ''
         exited = False
-        legit_keys={'a', 'w', 's', 'd'}
+        legit_keys={'a', 'w', 's', 'd', 'x'}
         while map.hero.is_alive(): #does every move
             print('level {}'.format(idx+1))
             map.print_map()
@@ -37,9 +39,6 @@ def level_readers(path):
             key = getch()
             cls()
             key = key.lower()
-            if key == 'x':
-                exited = True
-                break
 
             if key in legit_keys:
                 if key == 'a':
@@ -50,6 +49,12 @@ def level_readers(path):
                     map.move_hero('down')
                 if key == 'w':
                     map.move_hero('up')
+                if key == 'x':
+                    exited = True
+                    break
+
+            else:
+                print("Invalid command")
 
             if map.endpoint == (map.hero_position_X, map.hero_position_Y):
                 break #we're done here, go to next level

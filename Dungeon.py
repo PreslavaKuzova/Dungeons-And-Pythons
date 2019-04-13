@@ -1,13 +1,16 @@
 import json
 import random
 from Hero import Hero
+from Enemy import Enemy
 from Spell import Spell
 from Weapon import Weapon
+from Fight import Fight
 
 class Dungeon:
-    def __init__(self, map_directory, hero: Hero):
+    def __init__(self, map_directory, hero: Hero, level):
         self.map_directory = map_directory
         self.hero = hero
+        self.level = level #the power of enemies will depend on level
         self.tmp_map = []
         self.hero_position_X = None
         self.hero_position_Y = None
@@ -43,9 +46,7 @@ class Dungeon:
                     self.hero_position_X = x
                     self.hero_position_Y = y
                     return True
-                # if symbol == 'G':
-                #      #save coords of end point
-                #     self.endpoint = (x, y)
+
         return False
 
     def _update_tmp_map(self, x, y):
@@ -74,8 +75,12 @@ class Dungeon:
                 if  self.tmp_map[x][y] == 'T':
                     self.treasure_found()
                 if  self.tmp_map[x][y] == 'E':
-                    pass
+                    enemy = Enemy(self.level*15, self.level*15, self.level*10)
+                    fight = Fight(self.hero, enemy)
+                    fight.fight()
+                self.start_remote_battle(x, y)
                 self._update_tmp_map(x, y)
+                self.hero.take_mana()
                 return True
         else:
             print('Invalid. Your move was out of the map!')
@@ -109,8 +114,32 @@ class Dungeon:
             self.hero.equip(weapon)
             return weapon.name
 
-    def fight(self):
+    def hero_attack(self, by=None):
+        dmg = self.hero.attack(by=by)
+        if dmg > 0:
+            return True
+        return False
+
+    def start_remote_battle(self, curr_x, curr_y):
         pass
+        #can't work like that because we have to move during the fight
+        #TODO: when loading the map, count enemies and create set with them
+        #when the enemy is dead, pop from set => hash for the enemies class
+    #     try:
+    #         rng = self.hero.spell.cast_range
+    #     except:
+    #         rng = 0
+    #     low_x = curr_x - rng if curr_x - rng > 0 else 0
+    #     up_x = curr_x + rng if curr_x + rng <= self.X else self.X
+    #     low_y = curr_y - rng if curr_y - rng > 0 else 0
+    #     up_y = curr_y + rng if curr_y + rng <= self.Y else self.Y
+    #     for x in range(low_x, up_x):
+    #         for y in range(low_y, up_y):
+    #             if self.tmp_map[x][y] == 'E':
+    #                 enemy = Enemy(self.level*15, self.level*15, self.level*10)
+    #                 fight = Fight(self.hero, enemy)
+                    
+
 
     @staticmethod
     def read_json(argument):

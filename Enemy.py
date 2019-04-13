@@ -54,6 +54,9 @@ class Enemy:
         self.spell = spell
 
     def attack(self, by=None):
+        if by is None:
+            return self.damage
+
         if by == 'weapon':
             if self.equiped != None:
                 return self.equiped.damage
