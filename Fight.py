@@ -55,5 +55,4 @@ class Fight:
                     made_dmg = self.enemy.attack()
 
                 self.hero.take_damage(made_dmg) #apply damage on the enemy
-
-
+                    
