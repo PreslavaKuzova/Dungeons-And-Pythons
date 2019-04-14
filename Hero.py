@@ -25,14 +25,12 @@ class Hero:
     def is_alive(self):
         if self.health > 0:
             return True
-        else:
-            return False
+        return False
 
     def can_cast(self):
-        if self.mana > 0:
+        if self.spell is not None and self.mana > 0:
             return True
-        else:
-            return False
+        return False
 
     def take_damage(self, dmg_points):
         self.health-=dmg_points

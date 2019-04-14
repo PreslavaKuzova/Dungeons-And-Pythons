@@ -1,5 +1,6 @@
 import json
 import random
+import os
 from Hero import Hero
 from Enemy import Enemy
 from Spell import Spell
@@ -71,14 +72,14 @@ class Dungeon:
             y += 1
         
         if (x in range(0, self.X) and y in range(0, self.Y)):
+            enemy = Enemy(self.level*15, self.level*15, self.level*10)
+            fight = Fight(self.hero, enemy)
             if self.tmp_map[x][y] != '#':
                 if  self.tmp_map[x][y] == 'T':
                     self.treasure_found()
                 if  self.tmp_map[x][y] == 'E':
-                    enemy = Enemy(self.level*15, self.level*15, self.level*10)
-                    fight = Fight(self.hero, enemy)
                     fight.fight()
-                self.start_remote_battle(x, y)
+                self.remote_battle(x, y) #in every step if remote battle is possible, start it
                 self._update_tmp_map(x, y)
                 self.hero.take_mana()
                 return True
@@ -120,29 +121,74 @@ class Dungeon:
             return True
         return False
 
-    def start_remote_battle(self, curr_x, curr_y):
-        pass
-        #can't work like that because we have to move during the fight
-        #TODO: when loading the map, count enemies and create set with them
-        #when the enemy is dead, pop from set => hash for the enemies class
-    #     try:
-    #         rng = self.hero.spell.cast_range
-    #     except:
-    #         rng = 0
-    #     low_x = curr_x - rng if curr_x - rng > 0 else 0
-    #     up_x = curr_x + rng if curr_x + rng <= self.X else self.X
-    #     low_y = curr_y - rng if curr_y - rng > 0 else 0
-    #     up_y = curr_y + rng if curr_y + rng <= self.Y else self.Y
-    #     for x in range(low_x, up_x):
-    #         for y in range(low_y, up_y):
-    #             if self.tmp_map[x][y] == 'E':
-    #                 enemy = Enemy(self.level*15, self.level*15, self.level*10)
-    #                 fight = Fight(self.hero, enemy)
-                    
+    def remote_battle(self, curr_x, curr_y):
+        try:
+            rng = self.hero.spell.cast_range
+        except:
+            rng = 0
+        enemy = Enemy(self.level*20, self.level*15, self.level*10)
+        fight = Fight(self.hero, enemy)
+        low_x = curr_x - rng if curr_x - rng > 0 else 0
+        up_x = curr_x + rng if curr_x + rng <= self.X else self.X
+        low_y = curr_y - rng if curr_y - rng > 0 else 0
+        up_y = curr_y + rng if curr_y + rng <= self.Y else self.Y
 
+        for x in range(low_x, curr_x): #for every position up of our hero
+            if self.tmp_map[x][curr_y] == 'E' and self.hero.can_cast():
+                enemy_dmg = -1*self.hero.attack(by='magic')
+                enemy.take_healing(enemy_dmg)
+                if enemy.is_alive(): #if enemy is still not dead, move down to hero
+                    if (x+1, curr_y)!=(curr_x, curr_y): #Hero and enemy are still not on same position
+                        self.tmp_map[x+1][curr_y] = 'E'
+                        self.tmp_map[x][curr_y] = '.'
+                        return
+                    else:
+                        fight.fight()
+                        return
+                
+
+        for x in range(curr_x, up_x): #for every position down of our hero
+            if self.tmp_map[x][curr_y] == 'E' and self.hero.can_cast():
+                enemy_dmg = -1*self.hero.attack(by='magic')
+                enemy.take_healing(enemy_dmg)
+                if enemy.is_alive(): #if enemy is still not dead, it moves up to hero
+                    if (x-1, curr_y)!=(curr_x, curr_y): #Hero and enemy are still not on same position
+                        self.tmp_map[x-1][curr_y] = 'E'
+                        self.tmp_map[x][curr_y] = '.'
+                        return
+                    else:
+                        fight.fight()
+                        return
+
+        for y in range(low_y, curr_y): #for every position left of our hero
+            if self.tmp_map[curr_x][y] == 'E' and self.hero.can_cast():
+                enemy_dmg = -1*self.hero.attack(by='magic')
+                enemy.take_healing(enemy_dmg)
+                if enemy.is_alive(): #if enemy is still not dead, move right to hero
+                    if (curr_x, y+1)!=(curr_x, curr_y): #Hero and enemy are still not on same position
+                        self.tmp_map[curr_x][y+1] = 'E'
+                        self.tmp_map[x][curr_y] = '.'
+                        return
+                    else:
+                        fight.fight()
+                        return
+                            
+        for y in range(curr_y, up_y): #for every position righ of our hero
+            if self.tmp_map[curr_x][y] == 'E' and self.hero.can_cast():
+                enemy_dmg = -1* self.hero.attack(by='magic')
+                enemy.take_healing(enemy_dmg)
+                if enemy.is_alive(): #if enemy is still not dead, move left to hero
+                    if (curr_x, y-1)!=(curr_x, curr_y): #Hero and enemy are still not on same position
+                        self.tmp_map[curr_x][y-1] = 'E'
+                        self.tmp_map[x][curr_y] = '.'
+                        return
+                    else:
+                        fight.fight()
+                        return
 
     @staticmethod
     def read_json(argument):
         with open (argument, 'r') as f:
             data = json.load(f)
         return data
+

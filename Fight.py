@@ -54,6 +54,21 @@ class Fight:
                 else:
                     made_dmg = self.enemy.attack()
 
-                self.hero.take_healing(-made_dmg) #apply damage on the enemy
+                self.hero.take_healing(-made_dmg) #apply damage on the hero
 
 
+    def start_remote_battle(self, curr_x, curr_y):
+        try:
+            rng = self.hero.spell.cast_range
+        except:
+            rng = 0
+        low_x = curr_x - rng if curr_x - rng > 0 else 0
+        up_x = curr_x + rng if curr_x + rng <= self.X else self.X
+        low_y = curr_y - rng if curr_y - rng > 0 else 0
+        up_y = curr_y + rng if curr_y + rng <= self.Y else self.Y
+        for x in range(low_x, up_x):
+            for y in range(low_y, up_y):
+                if self.tmp_map[x][y] == 'E':
+                    enemy = Enemy(self.level*15, self.level*15, self.level*10)
+                    #start a fight
+                    
