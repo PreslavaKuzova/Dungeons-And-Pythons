@@ -1,6 +1,6 @@
 class Character: 
     def __init__(self, health):
-        self.__max_health = health
+        self._max_health = health
         self.health = health #modifiable value, current health
 
     def get_health(self):
