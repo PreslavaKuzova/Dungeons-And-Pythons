@@ -29,6 +29,8 @@ class HeroTests(unittest.TestCase):
 
     def test_can_cast_if_possible(self):
         h = Hero(name="Bron", title="Dragonslayer", health=100, mana=100, mana_regeneration_rate=2)
+        spell = Spell('abra kadabra', 30, 20, 2)
+        h.learn(spell)
         self.assertTrue(h.can_cast())
 
     def test_can_cast_if_no_enough_mana(self):
