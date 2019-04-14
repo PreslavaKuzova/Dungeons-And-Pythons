@@ -75,7 +75,7 @@ class Dungeon:
                 if  self.tmp_map[x][y] == 'T':
                     self.treasure_found()
                 if  self.tmp_map[x][y] == 'E':
-                    enemy = Enemy(self.level*15, self.level*15, self.level*10)
+                    enemy = Enemy(self.level*15, self.level*10)
                     fight = Fight(self.hero, enemy)
                     fight.fight()
                 self.start_remote_battle(x, y)

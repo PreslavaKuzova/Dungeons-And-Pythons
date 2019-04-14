@@ -1,13 +1,13 @@
 from Weapon import Weapon
 from Spell import Spell
+from Character import *
 
-class Hero:
+class Hero(Character):
     def __init__(self, name, title, health, mana, mana_regeneration_rate):
+        Character.__init__(self, health)
         self.name = name
         self.title = title
-        self.__max_health = health
         self.__max_mana = mana
-        self.health = health #modifiable value, current health
         self.mana = mana #current mana
         self.mana_regeneration_rate = mana_regeneration_rate
         self.equiped = None
@@ -16,28 +16,11 @@ class Hero:
     def known_as(self):
         return "{} the {}".format(self.name, self.title)
 
-    def get_health(self):
-        return self.health
-
     def get_mana(self):
         return self.mana
 
-    def is_alive(self):
-        if self.health > 0:
-            return True
-        else:
-            return False
-
     def can_cast(self):
-        if self.mana > 0:
-            return True
-        else:
-            return False
-
-    def take_damage(self, dmg_points):
-        self.health-=dmg_points
-        if self.health < 0:
-            self.health = 0
+        return True if self.mana > 0 else False
 
     def take_healing(self, healing_points):
         self.health+=healing_points
@@ -54,17 +37,10 @@ class Hero:
         if self.mana > self.__max_mana:
             self.mana = self.__max_mana
 
-    def equip(self, weapon):
-        if not isinstance(weapon, Weapon):
-            raise TypeError('the weapon given is not of class Weapon!')
-
+    def equip(self, weapon:Weapon):
         self.equiped = weapon
 
-
-    def learn(self, spell):
-        if not isinstance(spell, Spell):
-            raise TypeError('the spell given is not of class Spell!')
-
+    def learn(self, spell:Spell):
         self.spell = spell
 
     def attack(self, by=None):

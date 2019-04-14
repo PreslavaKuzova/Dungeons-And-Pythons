@@ -28,7 +28,7 @@ class Fight:
             else:
                 made_dmg = self.hero.attack(by='weapon')
 
-            self.enemy.take_healing(-made_dmg) #apply damage on the enemy
+            self.enemy.take_damage(made_dmg) #apply damage on the enemy
 
             #if enemy is still alive, he attacks
             if self.enemy.is_alive():
@@ -54,6 +54,6 @@ class Fight:
                 else:
                     made_dmg = self.enemy.attack()
 
-                self.hero.take_healing(-made_dmg) #apply damage on the enemy
+                self.hero.take_damage(made_dmg) #apply damage on the enemy
 
 
