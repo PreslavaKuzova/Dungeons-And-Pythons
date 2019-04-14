@@ -10,6 +10,7 @@ class Fight:
 
     def fight(self):
         #fight till death
+        print("A fight is started between our", str(self.hero),"and", str(self.enemy))
         while self.hero.is_alive() and self.enemy.is_alive():
             #hero attacks first
             curr_hero_damage_by_weapon = self.hero.equiped.damage

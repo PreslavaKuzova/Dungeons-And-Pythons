@@ -13,6 +13,9 @@ class Hero(Character):
         self.equiped = None
         self.spell = None
 
+    def __str__(self):
+        return "Hero(health={}, mana={})".format(self.health, self.mana)
+
     def known_as(self):
         return "{} the {}".format(self.name, self.title)
 
