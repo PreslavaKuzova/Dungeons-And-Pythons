@@ -57,7 +57,7 @@ They cannot equip weapons or learn spells but it is not required for them in ord
 # Weapons and Spells
 These two classes have been implemented with the help of .json files that contain the information for the weapons' and spells' attributes. In order for our hero to have proper damage, he must be equiped with either a weapon or a spell. One hero can carry at max 1 weapon and 1 spell.
 
-# Dungeons
+# Dungeon
 This is where the map of the game is loaded. We decided that we want more than one level in our game and this is why we created a folder that contains the txt files with the maps.
 
 * **move_hero(direction)** where direction is either "up", "down", "left" and "right"
@@ -73,3 +73,19 @@ We load the maps from a txt file.
 * **treasure_found()**
 
 Once we step on a 'T' on our map this means we have found a treasue. It can either be mana, health, weapon or a spell. A random functions decides and automatically adds it to the attributes.
+
+* **hero_attack()** returns True if the damage done by the hero is more than 0 and False in the other cases
+* **get_end_point()** returns a tuple with the coordinates of the endpoint 'G' 
+
+# Fight
+Our hero must fight his enemies in order to reach the exit of the dungeon.Our hero walks into the same position as the enemy - then the fights start automatically. Our hero is within some range of the enemy and triggers hero_attack method call. Then we can attack our enemy, but our enemy must walk to our place in order to start attacking us. This is really helpful with spells!
+
+* **fight()** starts a fight when our hero is on the same cell of the map
+* **remote_fight()** starts the fight from distance when our hero casts a spell and there is an enemy in it's range
+
+The fight follows this algorithm:
+* Our hero always attacks first
+* We always use the attack that uses more damage
+* If our weapon and our spell deals the same amount of damage, the hero uses the spell first.
+* When then hero runs out of mana, he uses the weapon (if he has any)
+
