@@ -38,7 +38,6 @@ class Dungeon:
         for line in self.tmp_map:
             print(''.join(line))
 
-
     def spawn(self):
         for x, line in enumerate(self.tmp_map):
             for y, symbol in enumerate(line):
