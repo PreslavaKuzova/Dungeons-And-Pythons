@@ -4,8 +4,6 @@ sys.path.insert(0, '../')
 from Dungeon import *
 from Hero import *
 
-
-
 class TestDungeon(unittest.TestCase):
     def test_dungeon_initialization_when_empty_map(self):
         h = Hero(name="Bron", title="Dragonslayer", health=100, mana=100, mana_regeneration_rate=2)
