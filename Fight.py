@@ -41,9 +41,9 @@ class Fight:
     def remote_battle(self, curr_x, curr_y):
         rng = self.hero.spell.cast_range
         low_x = curr_x - rng if curr_x - rng > 0 else 0
-        up_x = curr_x + rng if curr_x + rng <= self.X else self.X
+        up_x = curr_x + rng+1 if curr_x + rng+1 < self.X else self.X-1
         low_y = curr_y - rng if curr_y - rng > 0 else 0
-        up_y = curr_y + rng if curr_y + rng <= self.Y else self.Y
+        up_y = curr_y + rng+1 if curr_y + rng+1 < self.Y else self.Y-1
 
         for x in range(low_x, curr_x): #for every position up of our hero
             if self.tmp_map[x][curr_y] == 'E' and self.hero.can_cast() and self.hero.mana >= self.hero.spell.mana_cost:
