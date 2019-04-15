@@ -1,18 +1,18 @@
 {
     "1": {          
         "name": "Axe",
-        "damage": "25"
+        "damage": "20"
     },
     "2": {          
         "name": "Sword",
-        "damage": "35"
+        "damage": "20"
     },
     "3": {          
         "name": "Excalibur",
-        "damage": "50"
+        "damage": "25"
     },
     "4": {          
         "name": "Pecker",
-        "damage": "15"
+        "damage": "10"
     }
 }

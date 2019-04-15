@@ -1,38 +1,38 @@
 {
     "1": {          
         "name": "Riddikulus",
-        "damage": "25", 
-        "mana_cost": "30",
+        "damage": "15", 
+        "mana_cost": "20",
         "cast_range": "2"
     },
     "2": {          
         "name": "Obliviate",
-        "damage": "15", 
-        "mana_cost": "20",
+        "damage": "10", 
+        "mana_cost": "15",
         "cast_range": "1"
     },
     "3": {          
         "name": "Sectumsempra",
-        "damage": "30", 
-        "mana_cost": "35",
-        "cast_range": "1"
-    },
-    "4": {          
-        "name": "Lumos",
-        "damage": "20", 
+        "damage": "15", 
         "mana_cost": "15",
         "cast_range": "2"
     },
+    "4": {          
+        "name": "Lumos",
+        "damage": "10", 
+        "mana_cost": "15",
+        "cast_range": "1"
+    },
     "5": {          
         "name": "Expelliarmus",
-        "damage": "30", 
-        "mana_cost": "35",
-        "cast_range": "3"
+        "damage": "25", 
+        "mana_cost": "25",
+        "cast_range": "2"
     },
     "6": {          
         "name": "Wingardium Leviosa",
-        "damage": "15", 
-        "mana_cost": "40",
+        "damage": "25", 
+        "mana_cost": "30",
         "cast_range": "2"
     },
     "7": {          
