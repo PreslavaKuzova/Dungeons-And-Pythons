@@ -55,4 +55,21 @@ They cannot equip weapons or learn spells but it is not required for them in ord
 * **attack()** returns the demage done by the enemy
 
 # Weapons and Spells
-These two classes have been implemented with the help of .json files that contain the information for the weapons' and spells' attributes.
+These two classes have been implemented with the help of .json files that contain the information for the weapons' and spells' attributes. In order for our hero to have proper damage, he must be equiped with either a weapon or a spell. One hero can carry at max 1 weapon and 1 spell.
+
+# Dungeons
+This is where the map of the game is loaded. We decided that we want more than one level in our game and this is why we created a folder that contains the txt files with the maps.
+
+* **move_hero(direction)** where direction is either "up", "down", "left" and "right"
+
+This should move our hero in the desired direction.
+Return True if he can move into that direction or Fasle otherwise.
+
+* **fill_tmp_map()** creates a list with the characters given in the map. 
+
+We load the maps from a txt file.
+
+* **spawn()** spawns our hero on the first S that is given on the map
+* **treasure_found()**
+
+Once we step on a 'T' on our map this means we have found a treasue. It can either be mana, health, weapon or a spell. A random functions decides and automatically adds it to the attributes.
